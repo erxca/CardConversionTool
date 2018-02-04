@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import jp.ac.wakhok.tomoharu.csv.CSVLine;
 import jp.ac.wakhok.tomoharu.csv.CSVTokenizer;
+import view.DropFile;
 
 public class CardConversionTool {
 
@@ -65,24 +66,24 @@ public class CardConversionTool {
 		cardList = new ArrayList<ArrayList<String>>();
 		csvData = new ArrayList<ArrayList<String>>();
 
-		ml = new ManageLog();
-
-		if (window.logIsSelected) {
-
-			try {
-				ml.LoadLog();
-				startDay = ml.startDay;
-				endDay = ml.endDay;
-
-			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
-
-		} else {
-			startDay = window.date1;
-			endDay = window.date2;
-		}
+		// ml = new ManageLog();
+		//
+		// if (window.logIsSelected) {
+		//
+		// try {
+		// ml.LoadLog();
+		// startDay = ml.startDay;
+		// endDay = ml.endDay;
+		//
+		// } catch (IOException e) {
+		// // TODO 自動生成された catch ブロック
+		// e.printStackTrace();
+		// }
+		//
+		// } else {
+		startDay = window.getCp().date[0];
+		endDay = window.getCp().date[1];
+		// }
 
 	}
 
@@ -160,8 +161,8 @@ public class CardConversionTool {
 			String dataDate = data.get(13);
 			String[] s = dataDate.split("/");
 
-			s[1] = window.addZero(s[1]);
-			s[2] = window.addZero(s[2]);
+			s[1] = window.getCp().addZero(s[1]);
+			s[2] = window.getCp().addZero(s[2]);
 
 			StringBuffer sb = new StringBuffer();
 			sb.append(s[0]);
@@ -281,7 +282,8 @@ public class CardConversionTool {
 
 				// } else {
 
-				// window.la.append(Integer.toString(oldNum + tmpNum) + "\t" + dataList.get(0) +
+				// window.la.append(Integer.toString(oldNum + tmpNum) + "\t" +
+				// dataList.get(0) +
 				// "\t" + dataList.get(3)
 				// + "\t" + dataList.get(5) + "\n");
 				// window.la.setCaretPosition(window.la.getText().length());
@@ -321,7 +323,8 @@ public class CardConversionTool {
 	}
 
 	// 重複チェック。重複があればtrueを返す
-	// private boolean isDuplicate(ArrayList<String> dataList) throws IOException {
+	// private boolean isDuplicate(ArrayList<String> dataList) throws
+	// IOException {
 	//
 	// if (dataList.get(5).length() != 0) {
 	//
