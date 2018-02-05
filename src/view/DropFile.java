@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 
 import tool.CardConversionTool;
+import tool.ExtractionProcessing;
 
 public class DropFile {
 
@@ -36,7 +37,7 @@ public class DropFile {
 	private int raSize = 0;
 
 	public JCheckBox cb;
-	public boolean logIsSelected = false;
+	public boolean dateIsSelected = true;
 	public JTextField name;
 	MyThread thread;
 	private ConditionPart cp;
@@ -45,11 +46,11 @@ public class DropFile {
 	private final int WIDTH_RATIO = 94; // 各コンポーネントのフレームに対する幅の割合
 	private final int BRANK_RATIO = 3; // 各コンポーネントの間の余白の割合
 	private final int X_RATIO = 3; // 横の余白の割合
-	private final int LBL_RATIO = 6; // フレームに対する説明ラベルの割合
-	private final int DATE_RATIO = 25;
+	private final int LBL_RATIO = 5; // フレームに対する説明ラベルの割合
+	private final int DATE_RATIO = 20;
 	private final int DDLBL_RATIO = 15;
-	private final int RESULT_RATIO = 22;
-	private final int LOG_RATIO = 15;
+	private final int RESULT_RATIO = 25;
+	private final int LOG_RATIO = 18;
 
 	public DropFile() {
 
@@ -60,7 +61,7 @@ public class DropFile {
 
 		// フレームのサイズ、コンポーネントの位置・サイズ設定
 		fWidth = w * FRAME_WIDTH_RATIO / 100;
-		fHeight = h * 3 / 5;
+		fHeight = h * 4 / 5;
 		xPos = X_RATIO * fWidth / 100;
 		cWidth = WIDTH_RATIO * fWidth / 100;
 		blank = fHeight * BRANK_RATIO / 100;
@@ -121,7 +122,7 @@ public class DropFile {
 		yPos += ddlblHeight + blank;
 
 		// ドロップ操作を有効にする
-		ddlbl.setTransferHandler(new DropFileHandler());
+		ddlbl.setTransferHandler(new DropFileHandler(this));
 
 	}
 
@@ -138,7 +139,7 @@ public class DropFile {
 		do {
 			raSize++;
 			raFm = ra.getFontMetrics(new Font(Font.SANS_SERIF, Font.PLAIN, raSize));
-		} while (raFm.getAscent() + raFm.getDescent() < (jspHeight / 5));
+		} while (raFm.getAscent() + raFm.getDescent() < (jspHeight / 7));
 
 		ra.setting(raSize);
 		jsp.setViewportView(ra);
@@ -179,6 +180,11 @@ public class DropFile {
 
 	// ドロップ操作の処理を行うクラス
 	private class DropFileHandler extends TransferHandler {
+		DropFile df;
+
+		public DropFileHandler(DropFile df) {
+			this.df = df;
+		}
 
 		// ドロップされたものを受け取るか判断 (ファイルのときだけ受け取る)
 		@Override
@@ -206,7 +212,9 @@ public class DropFile {
 
 			// ドロップ処理
 			Transferable t = support.getTransferable();
-			// logIsSelected = radio1.isSelected();
+			if (!cp.getRadio2().isSelected()) {
+				dateIsSelected = false;
+			}
 
 			try {
 				// ファイルを受け取る
@@ -230,7 +238,7 @@ public class DropFile {
 				ra.append(textAreaFormat.format(date) + "\n");
 				ra.append("> インポートしたファイル：" + files.get(0).getName() + "\n");
 
-				thread = new MyThread(files.get(0), newFileDate);
+				thread = new MyThread(files.get(0), newFileDate, df);
 				thread.start();
 
 			} catch (UnsupportedFlavorException | IOException e) {
@@ -243,21 +251,21 @@ public class DropFile {
 	private class MyThread extends Thread {
 		File newFile;
 		String fileDate;
-		// private boolean running = true;
+		DropFile df;
 
-		public MyThread(File newFile, String fileDate) {
+		public MyThread(File newFile, String fileDate, DropFile df) {
 			this.newFile = newFile;
 			this.fileDate = fileDate;
+			this.df = df;
 		}
 
 		public void run() {
-			// while (running) {
-			cct.inputFile(newFile, fileDate);
-			// }
+
+			ExtractionProcessing ep = new ExtractionProcessing(newFile, fileDate, df);
+			ep.inputFile();
+			// cct.inputFile(newFile, fileDate);
+
 		}
 
-		// public void stopRunning() {
-		// running = false;
-		// }
 	}
 }

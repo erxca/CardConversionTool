@@ -22,12 +22,12 @@ public class ConditionPart {
 	private int x, y;
 	private int size;
 	public int date[] = new int[2];
-	private int i = 0;
+	private int i;
 
 	private JPanel ip1;
 	private JRadioButton radio2, radio3;
 	private JComboBox<String> combo;
-	private MyTextField y1, m1, d1, y2, m2, d2;
+	private MyTextField y1, m1, d1, y2, m2, d2, input;
 
 	// 入力部があるラベルは3、ないラベルは2の割合で分割
 	private final int NUM = 2 * 2 + 3 * 2;
@@ -87,7 +87,8 @@ public class ConditionPart {
 		combo.setPreferredSize(new Dimension(size * 10, ph * 2));
 		ip2.add(combo);
 
-		ip2.add(new MyTextField(30, size));
+		input = new MyTextField(30, size);
+		ip2.add(input);
 
 		ButtonGroup group = new ButtonGroup();
 		// group.add(radio1);
@@ -140,8 +141,9 @@ public class ConditionPart {
 		String month2 = m2.getText();
 		String day2 = d2.getText();
 
+		i = 0;
+
 		if (check(year1, month1, day1)) {
-			System.out.println(date[0]);
 			return check(year2, month2, day2);
 		}
 
@@ -194,5 +196,9 @@ public class ConditionPart {
 
 	public JComboBox<String> getCombo() {
 		return combo;
+	}
+
+	public MyTextField getInput() {
+		return input;
 	}
 }
