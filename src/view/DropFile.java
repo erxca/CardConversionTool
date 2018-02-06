@@ -22,8 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 
-import tool.CardConversionTool;
-import tool.ExtractionProcessing;
+import model.CardConversionTool;
+import model.ExtractionProcessing;
 
 public class DropFile {
 
@@ -42,7 +42,7 @@ public class DropFile {
 	MyThread thread;
 	private ConditionPart cp;
 
-	private final int FRAME_WIDTH_RATIO = 50; // フレームの画面に対する幅の割合
+	private final int FRAME_WIDTH_RATIO = 60; // フレームの画面に対する幅の割合
 	private final int WIDTH_RATIO = 94; // 各コンポーネントのフレームに対する幅の割合
 	private final int BRANK_RATIO = 3; // 各コンポーネントの間の余白の割合
 	private final int X_RATIO = 3; // 横の余白の割合
@@ -68,7 +68,7 @@ public class DropFile {
 		yPos = blank;
 
 		// フレームの生成
-		frame = new JFrame("新規名刺データ抽出ツール");
+		frame = new JFrame("名刺データ抽出ツール");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.getContentPane().setPreferredSize(new Dimension(fWidth, fHeight));

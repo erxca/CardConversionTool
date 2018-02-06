@@ -1,7 +1,6 @@
-package tool;
+package model;
 
 import java.awt.EventQueue;
-import java.util.ArrayList;
 
 import view.DropFile;
 
@@ -16,14 +15,15 @@ public class CardConversionTool {
 	// private int lineNum = 0;
 	// private int oldNum = 0;
 
-	public int startDay, endDay;
-
-	public static ArrayList<ArrayList<String>> csvData = new ArrayList<ArrayList<String>>();
-
-	static boolean error1 = false; // 郵便番号があるのに住所がない
-	static String errorName;
-
-	ManageLog ml;
+	// public int startDay, endDay;
+	//
+	// public static ArrayList<ArrayList<String>> csvData = new
+	// ArrayList<ArrayList<String>>();
+	//
+	// static boolean error1 = false; // 郵便番号があるのに住所がない
+	// static String errorName;
+	//
+	// ManageLog ml;
 
 	public static void main(String[] args) {
 

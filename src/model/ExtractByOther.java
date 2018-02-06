@@ -1,4 +1,4 @@
-package tool;
+package model;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class ExtractByOther {
 
 	private void search(int index) {
 
-		ArrayList<ArrayList<String>> csvData = CardConversionTool.csvData;
+		ArrayList<ArrayList<String>> csvData = ep.csvData;
 		String input = df.getCp().getInput().getText();
 
 		for (ArrayList<String> data : csvData) {
