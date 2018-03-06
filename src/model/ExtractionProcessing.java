@@ -142,7 +142,6 @@ public class ExtractionProcessing {
 	private void extractData() {
 
 		for (ArrayList<String> data : csvData) {
-			afLineNum++;
 
 			String dataDate = data.get(13);
 			String[] s = dataDate.split("/");
@@ -164,6 +163,7 @@ public class ExtractionProcessing {
 	}
 
 	public void editData(ArrayList<String> data) {
+		afLineNum++;
 
 		window.la.append(data.get(data.size() - 1) + "\t" + data.get(0) + "\t" + data.get(3) + "\n");
 		window.la.setCaretPosition(window.la.getText().length());
