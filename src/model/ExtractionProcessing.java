@@ -24,6 +24,7 @@ public class ExtractionProcessing {
 	private String newFileDate;
 
 	private int lineNum = 0;
+	private int afLineNum = 0;
 
 	public int startDay, endDay;
 
@@ -38,6 +39,7 @@ public class ExtractionProcessing {
 		errorName = null;
 
 		lineNum = 0;
+		afLineNum = 0;
 		// oldNum = 0;
 		this.window = window;
 		this.window.la.setText("");
@@ -73,9 +75,9 @@ public class ExtractionProcessing {
 			// エラー処理 or ファイル出力
 			if (error1) {
 				outputError(1);
-			} else {
-				writeCsv(newFile, newFileDate);
 			}
+
+			writeCsv(newFile, newFileDate);
 
 		} catch (IOException ex) {
 
@@ -140,6 +142,7 @@ public class ExtractionProcessing {
 	private void extractData() {
 
 		for (ArrayList<String> data : csvData) {
+			afLineNum++;
 
 			String dataDate = data.get(13);
 			String[] s = dataDate.split("/");
@@ -153,7 +156,7 @@ public class ExtractionProcessing {
 			sb.append(s[2]);
 			int d = Integer.parseInt(sb.toString());
 
-			if (!existError() && d >= startDay && d <= endDay) {
+			if (d >= startDay && d <= endDay) {
 				editData(data);
 			}
 
@@ -174,19 +177,23 @@ public class ExtractionProcessing {
 		if ((zipcode.length() != 0 && address.length() != 0) || (zipcode.length() == 0 && address.length() == 0)) {
 
 			addr.search();
-			editAddress(data, addr);
+			// editAddress(data, addr);
 
 		} else if (zipcode.length() != 0 && address.length() == 0) {
 
 			error1 = true;
 			errorName = data.get(0);
+			window.ra.append(
+					"!! ERROR !!\n> " + afLineNum + " 行目 " + errorName + " 様のデータ\n> 郵便番号が登録されていますが、住所の登録がありません。\n\n");
+			window.ra.setCaretPosition(window.ra.getText().length());
 
 		} else if (zipcode.length() == 0 && address.length() != 0) {
 
 			addr.noZipcode(address);
-			editAddress(data, addr);
+			// editAddress(data, addr);
 
 		}
+		editAddress(data, addr);
 
 	}
 
@@ -306,18 +313,19 @@ public class ExtractionProcessing {
 		}
 	}
 
-	private boolean existError() {
-		if (error1) {
-			return true;
-		}
-		return false;
-	}
+	// private boolean existError() {
+	// if (error1) {
+	// return true;
+	// }
+	// return false;
+	// }
 
 	public void outputError(int errNum) {
 		switch (errNum) {
 		case 1:
-			window.ra.append(
-					"!! ERROR !!\n> " + lineNum + " 行目 " + errorName + " 様のデータ\n> 郵便番号が登録されていますが、住所の登録がありません。\n\n");
+			// window.ra.append(
+			// "!! ERROR !!\n> " + lineNum + " 行目 " + errorName + " 様のデータ\n>
+			// 郵便番号が登録されていますが、住所の登録がありません。\n\n");
 			break;
 
 		default:

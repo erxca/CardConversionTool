@@ -85,6 +85,7 @@ public class ConditionPart {
 		String[] elements = { "会社名", "氏名", "e-mail", "携帯電話" };
 		combo = new JComboBox<String>(elements);
 		combo.setPreferredSize(new Dimension(size * 10, ph * 2));
+		combo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, size - 1));
 		ip2.add(combo);
 
 		input = new MyTextField(30, size);

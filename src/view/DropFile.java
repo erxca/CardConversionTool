@@ -42,7 +42,7 @@ public class DropFile {
 	MyThread thread;
 	private ConditionPart cp;
 
-	private final int FRAME_WIDTH_RATIO = 60; // フレームの画面に対する幅の割合
+	private final int FRAME_WIDTH_RATIO = 50; // フレームの画面に対する幅の割合
 	private final int WIDTH_RATIO = 94; // 各コンポーネントのフレームに対する幅の割合
 	private final int BRANK_RATIO = 3; // 各コンポーネントの間の余白の割合
 	private final int X_RATIO = 3; // 横の余白の割合
@@ -61,7 +61,7 @@ public class DropFile {
 
 		// フレームのサイズ、コンポーネントの位置・サイズ設定
 		fWidth = w * FRAME_WIDTH_RATIO / 100;
-		fHeight = h * 4 / 5;
+		fHeight = h * 3 / 5;
 		xPos = X_RATIO * fWidth / 100;
 		cWidth = WIDTH_RATIO * fWidth / 100;
 		blank = fHeight * BRANK_RATIO / 100;
