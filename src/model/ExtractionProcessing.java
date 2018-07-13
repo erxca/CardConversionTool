@@ -169,6 +169,7 @@ public class ExtractionProcessing {
 		window.la.setCaretPosition(window.la.getText().length());
 
 		data.add(4, "");
+		data.add(14, "");
 		String zipcode = data.get(6);
 		String address = data.get(7);
 
@@ -242,7 +243,7 @@ public class ExtractionProcessing {
 
 			// 変換後のデータの列名
 			String[] item = { "会社名", "部署名", "役職", "姓", "名", "メール", "郵便番号", "国", "都道府県", "市区郡", "町名・番地", "電話", "TEL部門",
-					"TEL直通", "FAX", "携帯", "Webサイト", "名刺交換日", "Eightでつながっている人", "再データ化中の名刺", "'?'を含んだデータ" };
+					"TEL直通", "FAX", "携帯", "Webサイト", "LW業種", "名刺交換日", "Eightでつながっている人", "再データ化中の名刺", "'?'を含んだデータ" };
 			for (String s : item) {
 				bw.write(s);
 				bw.write(",");
@@ -257,6 +258,9 @@ public class ExtractionProcessing {
 			// , tmpNum = 0;
 			for (ArrayList<String> dataList : cardList) {
 				// tmpNum++;
+				// dataList.get(0) +
+				// "\t" + dataList.get(3)
+				// + "\t" + dataList.get(5) + "\n");
 
 				// if (isDuplicate(dataList) == false) {
 
@@ -273,9 +277,6 @@ public class ExtractionProcessing {
 				// } else {
 
 				// window.la.append(Integer.toString(oldNum + tmpNum) + "\t" +
-				// dataList.get(0) +
-				// "\t" + dataList.get(3)
-				// + "\t" + dataList.get(5) + "\n");
 				// window.la.setCaretPosition(window.la.getText().length());
 				// }
 
